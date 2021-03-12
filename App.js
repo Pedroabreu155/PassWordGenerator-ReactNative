@@ -1,28 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import Slider from '@react-native-community/slider';
+import ClipBoard from 'expo-clipboard';
+
+
+
+let passwordPossibility = '@!_$#*&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 export default function App(){
 
+  const [password, setPassword] = useState(''); 
+  const [sliderSize, setSliderSize] = useState(10);
+
   function generatePass(){
-    alert('clicou')
+
+    let pass = '';
+    for(let i = 0, n = passwordPossibility.length; i < sliderSize; i++){
+      pass += passwordPossibility.charAt(Math.floor(Math.random() * n))
+    };
+    setPassword(pass);
+
   }
+
+
+  function copyPassword(){
+    ClipBoard.setString(password);
+    alert('Senha Copiada!')
+  }
+
 
   return(
     <View style={styles.container}>
       <Image source={require('./assets/logo.png')} style={styles.logo}></Image>
-      <Text style={styles.title}>12 Caracteres</Text>
+      <Text style={styles.title}>{sliderSize} Caracteres</Text>
       <View style={styles.area}>
         <Slider style={{height: 50}} minimumValue={5} maximumValue={15} minimumTrackTintColor="#3300ff"
-        maximumTrackTintColor="#0000ff"/>
+        maximumTrackTintColor="#0000ff" value={sliderSize} onValueChange={(value) => setSliderSize(value.toFixed(0))}/>
       </View>
         <TouchableOpacity style={styles.button} onPress={generatePass}>
           <Text style={styles.buttonText}>Gerar Senha</Text>
         </TouchableOpacity>
-        <View style={styles.area}>
-          <Text style={styles.password}>1234</Text>
-        </View>
 
+        {password !== '' && (
+          <View style={styles.area}>
+          <Text style={styles.password} onLongPress={copyPassword}>{password}</Text>
+        </View>
+        )}
     </View>
   )
 }
