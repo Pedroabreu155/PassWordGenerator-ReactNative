@@ -1,26 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
-export default function App() {
-  return (
+
+export default function App(){
+  return(
     <View style={styles.container}>
-      <Text style={styles.title}>Primeiro Projeto React Native</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Projeto React Native</Text>
+      <Text>Insider React Native 2.0</Text>
     </View>
-  );
+  )
 }
 
+
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    backgroundColor: '#121212',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
   },
 
-  title: {
-    color: 'red',
-    fontSize: 24,
+  title:{
+    fontSize:25,
+    color: '#aa0020'
   }
-});
+
+}) 
